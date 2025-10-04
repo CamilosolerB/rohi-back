@@ -6,7 +6,7 @@ phases:
       python: 3.11
     commands:
       - echo "Instalando dependencias..."
-      - pip install -r ROHI_DEV_USER/requirements.txt -t ./ROHI_DEV_USER/package
+      - pip install -r requirements.txt -t ./ROHI_DEV_USER/
 
   pre_build:
     commands:
