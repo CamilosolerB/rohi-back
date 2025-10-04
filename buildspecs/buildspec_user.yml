@@ -1,0 +1,27 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.12
+    commands:
+      - echo "Instalando dependencias..."
+      - pip install -r requirements.txt -t ./package
+
+  pre_build:
+    commands:
+      - echo "Empaquetando Lambda ROHI_IPS_USER..."
+      - mkdir -p dist
+      - cd ROHI_IPS_USER
+      - zip -r ../dist/ROHI_IPS_USER.zip .
+      - cd - > /dev/null
+      - echo "Contenido final de dist:"
+      - ls -R dist
+
+  build:
+    commands:
+      - echo "Build completado para ROHI_IPS_USER"
+
+artifacts:
+  files:
+    - dist/ROHI_IPS_USER.zip
