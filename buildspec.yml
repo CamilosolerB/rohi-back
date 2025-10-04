@@ -19,6 +19,8 @@ phases:
           zip -r ../../dist/$lambda_name.zip .;
           cd - > /dev/null;
         done
+      - echo "Contenido final del directorio dist:"
+      - ls -R dist
 
   build:
     commands:
@@ -27,4 +29,3 @@ phases:
 artifacts:
   files:
     - dist/*.zip
-  base-directory: .
