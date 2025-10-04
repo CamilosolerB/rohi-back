@@ -10,10 +10,10 @@ phases:
 
   pre_build:
     commands:
-      - echo "Empaquetando Lambda ROHI_IPS_PATIENTS..."
+      - echo "Empaquetando Lambda ROHI_DEV_PATIENTS..."
       - mkdir -p dist
-      - cd ROHI_IPS_PATIENTS
-      - zip -r ../dist/ROHI_IPS_PATIENTS.zip .
+      - cd ROHI_DEV_PATIENTS
+      - zip -r ../dist/ROHI_DEV_PATIENTS.zip .
       - cd - > /dev/null
       - echo "Contenido final de dist:"
       - ls -R dist
