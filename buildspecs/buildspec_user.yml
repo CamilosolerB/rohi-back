@@ -10,19 +10,29 @@ phases:
 
   pre_build:
     commands:
-      - echo "Empaquetando Lambda ROHI_DEV_USER..."
+      - echo "Empaquetando Lambda ROHI_DEV_PATIENTS..."
       - mkdir -p dist
-      - cd ROHI_DEV_USER
-      - zip -r ../dist/ROHI_DEV_USER.zip .
+      - cd ROHI_DEV_PATIENTS
+      - zip -r ../dist/ROHI_DEV_PATIENTS.zip .
       - cd - > /dev/null
-      - echo "Contenido final del directorio dist:"
-      - ls -lh dist/
+      - echo "Contenido final de dist:"
+      - ls -R dist
 
   build:
     commands:
-      - echo "Build completado para ROHI_DEV_USER"
+      - echo "Build completado para ROHI_DEV_PATIENTS"
+
+  post_build:
+    commands:
+      - echo "Descomprimiendo artefacto para despliegue..."
+      - cd dist
+      - unzip ROHI_DEV_PATIENTS.zip -d .
+      - rm ROHI_DEV_PATIENTS.zip
+      - echo "Contenido final después de descomprimir:"
+      - ls -R
+      - cd -
 
 artifacts:
   files:
-    - dist/ROHI_DEV_USER.zip
-  discard-paths: yes
+    - dist/**/*
+  discard-paths: no
