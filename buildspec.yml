@@ -7,7 +7,7 @@ phases:
     commands:
       - echo "Instalando dependencias..."
       - pip install -r requirements.txt -t ./package || true
-      - echo "DEBUG: LAMBDA_FUNCTION_NAME=$LAMBDA_FUNCTION_NAME"
+      - echo "DEBUG: LAMBDA_FUNCTION_NAME=${LAMBDA_FUNCTION_NAME:-ROHI_DEV_USER}"
 
   pre_build:
     commands:
