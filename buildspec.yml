@@ -15,7 +15,7 @@ phases:
 
       # Verifica que exista la carpeta correspondiente a la Lambda
       - if [ ! -d "$LAMBDA_FUNCTION_NAME" ]; then
-          echo "Error: No existe el directorio $LAMBDA_FUNCTION_NAME";
+          echo "Error No existe el directorio $LAMBDA_FUNCTION_NAME";
           exit 1;
         fi
 
