@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.12
+      python: 3.11
     commands:
       - echo "Instalando dependencias..."
       - pip install -r requirements.txt -t ./package
@@ -11,19 +11,21 @@ phases:
   pre_build:
     commands:
       - echo "Empaquetando Lambda ROHI_DEV_USER..."
-      - mkdir -p tmp
       - cd ROHI_DEV_USER
-      - zip -r ../tmp/ROHI_DEV_USER.zip .
-      - cd - > /dev/null
-      - echo "Descomprimiendo ROHI_DEV_USER.zip..."
-      - unzip -o tmp/ROHI_DEV_USER.zip -d .
-      - rm -rf tmp
-      - echo "Contenido final en raíz del proyecto:"
+      # Empaqueta solo el contenido interno
+      - zip -r ../ROHI_DEV_USER.zip ./*
+      - cd ..
+      - echo "Descomprimiendo contenido de ROHI_DEV_USER.zip en raíz..."
+      - unzip -o ROHI_DEV_USER.zip -d .
+      - rm ROHI_DEV_USER.zip
+      - echo "Limpieza de carpetas temporales..."
+      - rm -rf ROHI_DEV_USER
+      - echo "Estructura final del proyecto para despliegue:"
       - ls -R .
 
   build:
     commands:
-      - echo "Build completado para ROHI_DEV_USER"
+      - echo "Build completado para ROHI_DEV_USER."
 
 artifacts:
   files:
