@@ -3,22 +3,24 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.11
+      python: 3.12
     commands:
       - echo "Instalando dependencias..."
       - pip install -r requirements.txt -t ./package
 
   pre_build:
     commands:
+      - echo "Limpiando todo excepto la carpeta ROHI_DEV_USER..."
+      - shopt -s extglob
+      - rm -rf !(ROHI_DEV_USER)
       - echo "Empaquetando Lambda ROHI_DEV_USER..."
       - cd ROHI_DEV_USER
-      # Empaqueta solo el contenido interno
       - zip -r ../ROHI_DEV_USER.zip ./*
       - cd ..
       - echo "Descomprimiendo contenido de ROHI_DEV_USER.zip en raíz..."
       - unzip -o ROHI_DEV_USER.zip -d .
       - rm ROHI_DEV_USER.zip
-      - echo "Limpieza de carpetas temporales..."
+      - echo "Eliminando carpeta original ROHI_DEV_USER..."
       - rm -rf ROHI_DEV_USER
       - echo "Estructura final del proyecto para despliegue:"
       - ls -R .
