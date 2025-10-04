@@ -10,23 +10,26 @@ phases:
 
   pre_build:
     commands:
-      - echo "Estructura..."
-      - ls -R
-      - echo "Empaquetando funciones Lambda..."
+      - echo "Empaquetando función Lambda: $LAMBDA_FUNCTION_NAME"
       - mkdir -p dist
-      - for dir in */; do
-          lambda_name=$(basename $dir);
-          echo "Empaquetando $lambda_name...";
-          cd $dir;
-          zip -r ../dist/$lambda_name.zip .;
-          cd - > /dev/null;
-        done
+
+      # Verifica que exista la carpeta correspondiente a la Lambda
+      - if [ ! -d "$LAMBDA_FUNCTION_NAME" ]; then
+          echo "Error: No existe el directorio $LAMBDA_FUNCTION_NAME";
+          exit 1;
+        fi
+
+      # Empaqueta solo la Lambda indicada
+      - cd $LAMBDA_FUNCTION_NAME
+      - zip -r ../dist/$LAMBDA_FUNCTION_NAME.zip .
+      - cd - > /dev/null
+
       - echo "Contenido final del directorio dist:"
       - ls -R dist
 
   build:
     commands:
-      - echo "Construcción completada."
+      - echo "Empaquetado completado para $LAMBDA_FUNCTION_NAME"
 
 artifacts:
   files:
