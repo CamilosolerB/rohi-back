@@ -10,21 +10,18 @@ phases:
 
   pre_build:
     commands:
-      - ls -R
-      - cd ..
-      - ls -R
-      - echo "Empaquetando Lambda ROHI_IPS_USER..."
+      - echo "Empaquetando Lambda ROHI_DEV_USER..."
       - mkdir -p dist
-      - cd ROHI_IPS_USER
-      - zip -r ../dist/ROHI_IPS_USER.zip .
+      - cd ROHI_DEV_USER
+      - zip -r ../dist/ROHI_DEV_USER.zip .
       - cd - > /dev/null
       - echo "Contenido final de dist:"
       - ls -R dist
 
   build:
     commands:
-      - echo "Build completado para ROHI_IPS_USER"
+      - echo "Build completado para ROHI_DEV_USER"
 
 artifacts:
   files:
-    - dist/ROHI_IPS_USER.zip
+    - dist/ROHI_DEV_USER.zip
