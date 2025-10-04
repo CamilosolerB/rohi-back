@@ -1,39 +1,29 @@
 version: 0.2
 
-env:
-  variables:
-    AWS_REGION: "us-east-1"   # Cambia si tu región es otra
-
 phases:
   install:
     runtime-versions:
-      python: 3.11
+      python: 3.12
     commands:
-      - echo "Install step - nothing to install (layers manejados manualmente)"
+      - echo "Instalando dependencias..."
+      - pip install -r requirements.txt -t ./package
+
+  pre_build:
+    commands:
+      - echo "Empaquetando funciones Lambda..."
+      - mkdir -p dist
+      - for dir in lambdas/*/; do
+          lambda_name=$(basename $dir);
+          echo "Empaquetando $lambda_name...";
+          cd $dir;
+          zip -r ../../dist/$lambda_name.zip .;
+          cd - > /dev/null;
+        done
 
   build:
     commands:
-      - echo "==> Empaquetando lambdas por carpeta"
-      - rm -f *.zip || true
-      - for d in */ ; do
-          # detectar si la carpeta parece una lambda: tiene lambda_function.py o src/
-          if [ -f "$d/lambda_function.py" ] || [ -d "$d/src" ]; then
-            folder="${d%/}"
-            zipname="${folder}.zip"
-            echo " - Empaquetando $folder -> $zipname"
-            (cd "$folder" && zip -r "../$zipname" .)
-          else
-            echo " - Saltando $d (no parece Lambda)"
-          fi
-        done
-  post_build:
-    commands:
-      - echo "==> Actualizando funciones Lambda"
-      - for z in *.zip ; do
-          fname="${z%.zip}";
-          echo " - Actualizando Lambda: $fname desde $z"
-          aws lambda update-function-code --function-name "$fname" --zip-file "fileb://$z" --region $AWS_REGION
-        done
+      - echo "Construcción completada."
+
 artifacts:
   files:
-    - '*.zip'
+    - dist/*.zip
