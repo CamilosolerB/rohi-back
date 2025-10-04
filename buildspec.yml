@@ -10,13 +10,15 @@ phases:
 
   pre_build:
     commands:
+      - echo "Estructura..."
+      - ls -R
       - echo "Empaquetando funciones Lambda..."
       - mkdir -p dist
-      - for dir in lambdas/*/; do
+      - for dir in */; do
           lambda_name=$(basename $dir);
           echo "Empaquetando $lambda_name...";
           cd $dir;
-          zip -r ../../dist/$lambda_name.zip .;
+          zip -r ../dist/$lambda_name.zip .;
           cd - > /dev/null;
         done
       - echo "Contenido final del directorio dist:"
