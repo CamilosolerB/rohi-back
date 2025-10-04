@@ -10,7 +10,7 @@ phases:
 
   pre_build:
     commands:
-      - echo ls -R
+      - cd ..
       - echo "Empaquetando Lambda ROHI_IPS_USER..."
       - mkdir -p dist
       - cd ROHI_IPS_USER
