@@ -6,20 +6,18 @@ phases:
       python: 3.12
     commands:
       - echo "Instalando dependencias..."
-      - pip install -r requirements.txt -t ./package
+      - pip install -r requirements.txt -t ./package || true
+      - echo "DEBUG: LAMBDA_FUNCTION_NAME=$LAMBDA_FUNCTION_NAME"
 
   pre_build:
     commands:
-      - echo "Empaquetando función Lambda: $LAMBDA_FUNCTION_NAME"
+      - echo "Preparando dist..."
       - mkdir -p dist
-      - |
-        if [ ! -d "$LAMBDA_FUNCTION_NAME" ]; then
-          echo "Error: No existe el directorio $LAMBDA_FUNCTION_NAME"
-          exit 1
-        fi
-      - cd $LAMBDA_FUNCTION_NAME
-      - zip -r ../dist/$LAMBDA_FUNCTION_NAME.zip .
-      - cd - > /dev/null
+      - 'if [ -z "$LAMBDA_FUNCTION_NAME" ]; then echo "ERROR: LAMBDA_FUNCTION_NAME no está definido"; exit 1; fi'
+      - 'if [ ! -d "$LAMBDA_FUNCTION_NAME" ]; then echo "ERROR: no existe el directorio \"$LAMBDA_FUNCTION_NAME\""; ls -la; exit 1; fi'
+      - 'cd "$LAMBDA_FUNCTION_NAME"'
+      - 'zip -r "../dist/${LAMBDA_FUNCTION_NAME}.zip" .'
+      - 'cd - > /dev/null'
       - echo "Contenido final del directorio dist:"
       - ls -R dist
 
