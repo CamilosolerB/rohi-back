@@ -1,38 +1,45 @@
 version: 0.2
 
+env:
+  variables:
+    LAMBDA_FUNCTION_NAME: "ROHI_DEV_USER"
+
 phases:
   install:
     runtime-versions:
-      python: 3.12
+      python: 3.11
     commands:
       - echo "Instalando dependencias..."
       - pip install -r requirements.txt -t ./package
 
   pre_build:
     commands:
-      - echo "Empaquetando Lambda ROHI_DEV_USER..."
+      - echo "Empaquetando Lambda $LAMBDA_FUNCTION_NAME..."
       - mkdir -p dist
       - cd ROHI_DEV_USER
-      - zip -r ../dist/ROHI_DEV_USER.zip .
+      - zip -r ../dist/$LAMBDA_FUNCTION_NAME.zip .
       - cd - > /dev/null
       - echo "Contenido final de dist:"
       - ls -R dist
 
   build:
     commands:
-      - echo "Build completado para ROHI_DEV_USER"
+      - echo "Build completado para $LAMBDA_FUNCTION_NAME"
 
   post_build:
     commands:
-      - echo "Descomprimiendo artefacto para despliegue..."
+      - echo "Descomprimiendo artefacto dentro de raíz..."
       - cd dist
-      - unzip ROHI_DEV_USER.zip -d .
-      - rm ROHI_DEV_USER.zip
-      - echo "Contenido final después de descomprimir:"
-      - ls -R
-      - cd -
+      - unzip -o $LAMBDA_FUNCTION_NAME.zip -d ../
+      - rm $LAMBDA_FUNCTION_NAME.zip
+      - cd ..
+      - echo "Reempaquetando para despliegue final..."
+      - zip -r $LAMBDA_FUNCTION_NAME.zip . -x "dist/*" "buildspec.yml" "*.pyc" "__pycache__/*"
+      - echo "Actualizando Lambda $LAMBDA_FUNCTION_NAME..."
+      - aws lambda update-function-code --function-name $LAMBDA_FUNCTION_NAME --zip-file fileb://$LAMBDA_FUNCTION_NAME.zip
+      - echo "Despliegue exitoso de $LAMBDA_FUNCTION_NAME "
 
 artifacts:
   files:
-    - dist/**/*
+    - dist/**
   discard-paths: no
