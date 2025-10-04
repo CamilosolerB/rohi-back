@@ -1,0 +1,13 @@
+# requirements.txt
+
+# AWS SDK para interacción con servicios AWS
+boto3==1.35.30
+
+# Validación y modelado de datos
+pydantic==2.9.2
+
+# Peticiones HTTP
+requests==2.32.3
+
+# ORM para bases de datos
+SQLAlchemy==2.0.36
