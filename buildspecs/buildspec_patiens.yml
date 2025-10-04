@@ -25,3 +25,4 @@ phases:
 artifacts:
   files:
     - dist/ROHI_IPS_PATIENTS.zip
+  discard-paths: yes

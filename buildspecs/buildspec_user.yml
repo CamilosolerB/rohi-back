@@ -15,8 +15,8 @@ phases:
       - cd ROHI_DEV_USER
       - zip -r ../dist/ROHI_DEV_USER.zip .
       - cd - > /dev/null
-      - echo "Contenido final de dist:"
-      - ls -R dist
+      - echo "Contenido final del directorio dist:"
+      - ls -lh dist/
 
   build:
     commands:
@@ -25,3 +25,4 @@ phases:
 artifacts:
   files:
     - dist/ROHI_DEV_USER.zip
+  discard-paths: yes
