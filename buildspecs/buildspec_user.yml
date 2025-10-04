@@ -10,24 +10,24 @@ phases:
 
   pre_build:
     commands:
-      - echo "Empaquetando Lambda ROHI_DEV_PATIENTS..."
+      - echo "Empaquetando Lambda ROHI_DEV_USER..."
       - mkdir -p dist
-      - cd ROHI_DEV_PATIENTS
-      - zip -r ../dist/ROHI_DEV_PATIENTS.zip .
+      - cd ROHI_DEV_USER
+      - zip -r ../dist/ROHI_DEV_USER.zip .
       - cd - > /dev/null
       - echo "Contenido final de dist:"
       - ls -R dist
 
   build:
     commands:
-      - echo "Build completado para ROHI_DEV_PATIENTS"
+      - echo "Build completado para ROHI_DEV_USER"
 
   post_build:
     commands:
       - echo "Descomprimiendo artefacto para despliegue..."
       - cd dist
-      - unzip ROHI_DEV_PATIENTS.zip -d .
-      - rm ROHI_DEV_PATIENTS.zip
+      - unzip ROHI_DEV_USER.zip -d .
+      - rm ROHI_DEV_USER.zip
       - echo "Contenido final después de descomprimir:"
       - ls -R
       - cd -
