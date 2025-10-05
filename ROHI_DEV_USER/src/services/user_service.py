@@ -1,4 +1,4 @@
-from src.dto.user_dto import UserCreateDTO, UserResponseDTO
+from src.dto.user_dto import UserDTO
 from src.repositories.user_repository import UserRepository
 from src.utilities.db_user import get_session
 
@@ -9,10 +9,22 @@ class UserService:
 
     def create_user(self, data):
         user = self.repo.create(data)
-        return user 
+        return UserDTO.from_orm(user) 
 
-    def get_user(self, user_id: int) -> UserResponseDTO | None:
+    def get_user(self, user_id: int) -> UserDTO:
         user = self.repo.get_by_id(user_id)
         if not user:
             return None
-        return UserResponseDTO(id=user.id, name=user.name, email=user.email)
+        return UserDTO.from_orm(user)
+    
+    def update_user(self, user_id: str, **kwargs) -> UserDTO:
+        user = self.repo.update_by_id(user_id, **kwargs)
+        if not user:
+            return None
+        return UserDTO.from_orm(user)
+    
+    def delete_user(self, user_id: str) -> UserDTO:
+        user = self.repo.delete_by_id(user_id)
+        if not user:
+            return None
+        return UserDTO.from_orm(user)

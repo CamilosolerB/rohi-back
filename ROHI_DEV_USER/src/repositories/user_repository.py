@@ -13,4 +13,23 @@ class UserRepository:
         return user
 
     def get_by_id(self, user_id: int) -> User | None:
-        return self.db.query(User).filter(User.id == user_id).first()
+        return self.db.query(User).filter(User.document_id == user_id).first()
+    
+    def update_by_id(self, user_id: int, **kwargs) -> User | None:
+        user = self.get_by_id(user_id)
+        if not user:
+            return None
+        for key, value in kwargs.items():
+            if hasattr(user, key) and value is not None:
+                setattr(user, key, value)
+        self.db.commit()
+        self.db.refresh(user)
+        return user
+    
+    def delete_by_id(self, user_id: int) -> User | None:
+        user = self.get_by_id(user_id)
+        if not user:
+            return None
+        self.db.delete(user)
+        self.db.commit()
+        return user

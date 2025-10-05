@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-class UserCreateDTO(BaseModel):
+class UserDTO(BaseModel):
     name: str
     email: str
     document_id: str
@@ -9,7 +9,6 @@ class UserCreateDTO(BaseModel):
     phone_number: str
     sex: str
     
-class UserResponseDTO(BaseModel):
-    id: int
-    name: str
-    email: str
+    class Config:
+        from_attributes = True
+        use_enum_values = True
