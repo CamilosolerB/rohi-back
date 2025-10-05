@@ -1,8 +1,7 @@
 from sqlalchemy import Column, Integer, String, Enum as SqlEnum
-from sqlalchemy.orm import declarative_base
+from src.utilities.db_user import Base
 from enum import Enum
 
-Base = declarative_base()
 class DocumentType(Enum):
     CC = "CC"
     CE = "CE"
@@ -27,12 +26,13 @@ class Rol(Enum):
 class User(Base):
     __tablename__ = "users"
 
-    document_id = Column(String, primary_key=True, index=True)
-    name = Column(String, nullable=False)
-    email = Column(String, unique=True, index=True)
+    document_id = Column(String(15), primary_key=True, index=True)
+    name = Column(String(255), nullable=False)
+    email = Column(String(255), unique=True, index=True)
     document_type = Column(SqlEnum(DocumentType), default=DocumentType.CC, nullable=False)
-    address = Column(String, nullable=False)
-    phone_number = Column(String, nullable=False)
+    address = Column(String(200), nullable=False)
+    phone_number = Column(String(13), nullable=False)
     sex = Column(SqlEnum(Sex), default=Sex.M, nullable=False)
     rol = Column(SqlEnum(Rol), default=Rol.PACIENTE, nullable=False)
     is_active = Column(Integer, default=1, nullable=False)
+    
