@@ -3,26 +3,24 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.12
+      python: 3.11
     commands:
       - echo "Instalando dependencias..."
-      - pip install -r requirements.txt -t ./package
+      - pip install -r requirements.txt -t ./ROHI_DEV_PATIENT/
 
   pre_build:
     commands:
-      - echo "Empaquetando Lambda ROHI_DEV_PATIENTS..."
-      - mkdir -p dist
-      - cd ROHI_DEV_PATIENTS
-      - zip -r ../dist/ROHI_DEV_PATIENTS.zip .
-      - cd - > /dev/null
-      - echo "Contenido final de dist:"
-      - ls -R dist
+      - echo "Preparando estructura para Lambda..."
+      - cd ROHI_DEV_PATIENT
+      - echo "Contenido de ROHI_DEV_PATIENT:"
+      - ls -R .
 
   build:
     commands:
-      - echo "Build completado para ROHI_IPS_PATIENTS"
+      - echo "Build completado para ROHI_DEV_PATIENT."
 
 artifacts:
+  base-directory: ROHI_DEV_PATIENT
   files:
-    - dist/ROHI_IPS_PATIENTS.zip
-  discard-paths: yes
+    - '**/*'
+  discard-paths: no
