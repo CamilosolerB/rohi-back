@@ -6,27 +6,24 @@ class PatientRepository:
     def __init__(self, db: Session):
         self.db = db
 
-    def create(self, fullname: str, email: str, documentId: str, phoneNumber: str, age: int | None = None) -> Patient:
-        patient = Patient(
-            fullname=fullname,
-            email=email,
-            documentId=documentId,
-            phoneNumber=phoneNumber,
-            age=age
-        )
-        self.db.add(patient)
-        self.db.commit()
-        self.db.refresh(patient)
-        return patient
+    def create(self, body) -> Patient:
+        try:
+            patient = Patient(**body)
+            self.db.add(patient)
+            self.db.commit()
+            self.db.refresh(patient)
+            return patient
+        except Exception as e:
+            raise e
 
-    def get_by_id(self, patient_id: int) -> Optional[Patient]:
-        return self.db.query(Patient).filter(Patient.id == patient_id).first()
+    def get_by_id(self, user_document_id: str) -> Optional[Patient]:
+        return self.db.query(Patient).filter(Patient.user_document_id == user_document_id).first()
 
     def get_all(self) -> List[Patient]:
         return self.db.query(Patient).all()
 
-    def update(self, patient_id: int, **kwargs) -> Optional[Patient]:
-        patient = self.get_by_id(patient_id)
+    def update(self, user_document_id: str, **kwargs) -> Optional[Patient]:
+        patient = self.get_by_id(user_document_id)
         if not patient:
             return None
         for key, value in kwargs.items():
@@ -36,8 +33,8 @@ class PatientRepository:
         self.db.refresh(patient)
         return patient
 
-    def delete(self, patient_id: int) -> bool:
-        patient = self.get_by_id(patient_id)
+    def delete(self, user_document_id: str) -> bool:
+        patient = self.get_by_id(user_document_id)
         if not patient:
             return False
         self.db.delete(patient)

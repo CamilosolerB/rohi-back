@@ -1,6 +1,8 @@
 from sqlalchemy import Column, Integer, String, Enum as SqlEnum
 from src.utilities.db_user import Base
+from sqlalchemy.orm import relationship
 from enum import Enum
+from src.models.patient_model import Patient
 
 class DocumentType(Enum):
     CC = "CC"
@@ -35,4 +37,4 @@ class User(Base):
     sex = Column(SqlEnum(Sex), default=Sex.M, nullable=False)
     rol = Column(SqlEnum(Rol), default=Rol.PACIENTE, nullable=False)
     is_active = Column(Integer, default=1, nullable=False)
-    
+    patient = relationship("Patient", back_populates="user", uselist=False)

@@ -15,5 +15,16 @@
             },
             "cwd": "${workspaceFolder}"
         },
+        {
+            "name": "ROHI DEV PATIENTS",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}\\entrys\\entry_patients.py",
+            "console": "integratedTerminal",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "cwd": "${workspaceFolder}"
+        }
     ]
 }

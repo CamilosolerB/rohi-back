@@ -1,51 +1,59 @@
 import json
-from ROHI_DEV_PATIENT.src.dto.patient_dto import PatientCreateDTO, PatientResponseDTO
-from ROHI_DEV_PATIENT.src.services.patient_service import PatientService
+from src.services.patient_service import PatientService
 
 service = PatientService()
 
 def lambda_handler(event, context):
     try:
-        http_method = event.get("httpMethod")
-        path = event.get("path", "")
-        path_params = event.get("pathParameters") or {}
-        body = json.loads(event.get("body", "{}")) if event.get("body") else {}
+        print(event)
+        service = PatientService()
+        route = event.get("routeKey", "")
+        path_params = event.get("pathParameters", {})
+        body = json.loads(event["body"]) if event.get("body") else {}
 
-        if http_method == "POST" and path.endswith("/patient"):
+        if route == "POST /patients":
             patient = service.create_patient(body)
             return {
                 "statusCode": 201,
-                "body": patient.json()
+                "body": json.dumps(patient.model_dump())
             }
-
-        elif http_method == "GET" and path_params.get("id"):
-            patient = service.get_patient(int(path_params["id"]))
-            if not patient:
-                return {"statusCode": 404, "body": json.dumps({"error": "Patient not found"})}
+        
+        if route == "GET /patients":
+            patients = service.list_patients()
+            patients_json = [json.loads(patient.model_dump_json()) for patient in patients]
             return {
                 "statusCode": 200,
-                "body": patient.json()
+                "body": json.dumps(patients_json)
             }
-
-        elif http_method == "PUT" and path_params.get("id"):
-            patient = service.update_patient(int(path_params["id"]), body)
-            if not patient:
-                return {"statusCode": 404, "body": json.dumps({"error": "Patient not found"})}
+        
+        if route == "GET /patients/{documentId}":
+            document_id = path_params.get("documentId")
+            patient = service.get_patient(document_id)
             return {
                 "statusCode": 200,
-                "body": patient.json()
+                "body": json.dumps(patient.model_dump())
             }
-
-        elif http_method == "DELETE" and path_params.get("id"):
-            deleted = service.delete_patient(int(path_params["id"]))
-            if not deleted:
-                return {"statusCode": 404, "body": json.dumps({"error": "Patient not found"})}
+        
+        if route == "PUT /patients/{documentId}":
+            document_id = path_params.get("documentId")
+            patient = service.update_patient(document_id, **body)
             return {
-                "statusCode": 204,
-                "body": ""
+                "statusCode": 200,
+                "body": json.dumps(patient.model_dump())
             }
-
-        return {"statusCode": 400, "body": json.dumps({"error": "Invalid request"})}
+        
+        if route == "DELETE /patients/{documentId}":
+            document_id = path_params.get("documentId")
+            service.delete_patient(document_id)
+            return {
+                "statusCode": 200,
+                "body": json.dumps({"message": "Patient deleted successfully"})
+            }
+        
+        return {
+            "statusCode": 404,
+            "body": json.dumps({"error": "Route not found"})
+        }
 
     except Exception as e:
         return {
