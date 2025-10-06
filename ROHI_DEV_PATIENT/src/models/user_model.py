@@ -38,4 +38,5 @@ class User(Base):
     is_active = Column(Integer, default=1, nullable=False)
 
     patient = relationship("Patient", back_populates="user", uselist=False)
+    professional = relationship("Professional", back_populates="user", uselist=False)
     

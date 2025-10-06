@@ -25,6 +25,17 @@
                 "PYTHONPATH": "${workspaceFolder}"
             },
             "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "ROHI DEV PROFESSIONALS",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}\\entrys\\entry_professionals.py",
+            "console": "integratedTerminal",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "cwd": "${workspaceFolder}"
         }
     ]
 }
