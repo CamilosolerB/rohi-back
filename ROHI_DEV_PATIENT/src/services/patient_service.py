@@ -1,7 +1,7 @@
 from typing import Optional, List
-from ROHI_DEV_PATIENT.src.dto.patient_dto import PatientDTO
-from ROHI_DEV_PATIENT.src.repositories.patient_repository import PatientRepository
-from ROHI_DEV_PATIENT.src.utilities.db_patient import get_session
+from src.dto.patient_dto import PatientDTO
+from src.repositories.patient_repository import PatientRepository
+from src.utilities.db_patient import get_session
 
 class PatientService:
     def __init__(self):
