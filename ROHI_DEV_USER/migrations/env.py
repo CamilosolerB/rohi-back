@@ -4,6 +4,7 @@ from sqlalchemy import pool
 from alembic import context
 from src.utilities.config_user import Config
 from src.models.user_model import User
+from src.models.patient_model import Patient
 from src.utilities.db_user import Base
 
 print(Config.DATABASE_URL)

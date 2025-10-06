@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
+
 class PatientDTO(BaseModel):
-    user_document_id: str
     id_pat: int
     agent: bool
     name_agent: str | None
@@ -9,5 +9,5 @@ class PatientDTO(BaseModel):
     eps: str
 
     class Config:
-        from_attributes = True
+        orm_mode = True
         use_enum_values = True

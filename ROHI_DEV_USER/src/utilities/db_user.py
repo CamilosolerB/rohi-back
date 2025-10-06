@@ -6,7 +6,7 @@ from .config_user import Config
 engine = create_engine(
     Config.DATABASE_URL,
     pool_pre_ping=True,  
-    echo=True            
+    echo=False            
 )
 
 # Crear sesión
