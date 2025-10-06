@@ -3,6 +3,7 @@ from src.utilities.db_user import Base
 from sqlalchemy.orm import relationship
 from enum import Enum
 from src.models.patient_model import Patient
+from src.models.professional_model import Professional
 
 class DocumentType(Enum):
     CC = "CC"
@@ -38,3 +39,4 @@ class User(Base):
     rol = Column(SqlEnum(Rol), default=Rol.PACIENTE, nullable=False)
     is_active = Column(Integer, default=1, nullable=False)
     patient = relationship("Patient", back_populates="user", uselist=False)
+    professional = relationship("Professional", back_populates="user", uselist=False)
