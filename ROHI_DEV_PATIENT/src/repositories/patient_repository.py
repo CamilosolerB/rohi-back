@@ -1,4 +1,4 @@
-from ROHI_DEV_PATIENT.src.models.patient_model import Patient
+from src.models.patient_model import Patient
 from sqlalchemy.orm import Session
 from typing import Optional, List
 
