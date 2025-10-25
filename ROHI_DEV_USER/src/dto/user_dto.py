@@ -8,6 +8,7 @@ class UserDTO(BaseModel):
     address: str
     phone_number: str
     sex: str
+    rol: str
     
     class Config:
         from_attributes = True
