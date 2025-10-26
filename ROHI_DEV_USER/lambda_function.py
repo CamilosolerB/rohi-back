@@ -16,6 +16,10 @@ def lambda_handler(event, context):
         user = service.create_user(body)
         return {"statusCode": 201, "body": json.dumps(user.model_dump())}
     
+    if route == "GET /user":
+        users = service.get_all_users()
+        return {"statusCode": 200, "body": json.dumps([user.model_dump() for user in users])}
+    
     if route == "GET /user/{documentId}":
         document_id = path_params.get("documentId")
         user = service.get_user(document_id)

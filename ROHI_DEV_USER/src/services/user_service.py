@@ -10,6 +10,10 @@ class UserService:
     def create_user(self, data):
         user = self.repo.create(data)
         return UserDTO.from_orm(user) 
+    
+    def get_all_users(self):
+        users = self.repo.get_all_users()
+        return [UserDTO.from_orm(user) for user in users]
 
     def get_user(self, user_id: int) -> UserDTO:
         user = self.repo.get_by_id(user_id)

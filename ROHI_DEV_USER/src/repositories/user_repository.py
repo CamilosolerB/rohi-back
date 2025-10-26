@@ -12,6 +12,9 @@ class UserRepository:
         self.db.refresh(user)
         return user
 
+    def get_all_users(self) -> list[User]:
+        return self.db.query(User).all()
+
     def get_by_id(self, user_id: int) -> User | None:
         return self.db.query(User).filter(User.document_id == user_id).first()
     
