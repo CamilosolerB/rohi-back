@@ -2,7 +2,7 @@
 from src.repositories.receipt_repository import ReceiptRepository
 from src.utilities.db_receipt import get_session
 
-class UserService:
+class ReceiptService:
     def __init__(self):
         self.db = get_session()
         self.repo = ReceiptRepository(self.db)
