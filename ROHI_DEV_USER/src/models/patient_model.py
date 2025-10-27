@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, Boolean, Enum as SqlEnum, Foreig
 from sqlalchemy.orm import relationship
 from enum import Enum
 from src.utilities.db_user import Base
+from src.models.appointmen_model import Appointment
 
 class Eps(Enum):
     NE = "Nueva EPS"

@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.11
+    commands:
+      - echo "Instalando dependencias..."
+      - pip install -r requirements.txt -t ./ROHI_DEV_RECEIPT/
+
+  pre_build:
+    commands:
+      - echo "Preparando estructura para Lambda..."
+      - cd ROHI_DEV_RECEIPT
+      - echo "Contenido de ROHI_DEV_RECEIPT:"
+      - ls -R .
+
+  build:
+    commands:
+      - echo "Build completado para ROHI_DEV_RECEIPT."
+
+artifacts:
+  base-directory: ROHI_DEV_RECEIPT
+  files:
+    - '**/*'
+  discard-paths: no

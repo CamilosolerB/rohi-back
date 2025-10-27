@@ -2,11 +2,11 @@ from logging.config import fileConfig
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from alembic import context
-from src.utilities.config_user import Config
+from ROHI_DEV_RECEIPT.src.utilities.config_receipt import Config
 from src.models.user_model import User
 from src.models.patient_model import Patient
 from src.models.professional_model import Professional
-from src.utilities.db_user import Base
+from ROHI_DEV_RECEIPT.src.utilities.db_receipt import Base
 
 print(Config.DATABASE_URL)
 # this is the Alembic Config object, which provides

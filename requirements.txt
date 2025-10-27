@@ -14,3 +14,10 @@ SQLAlchemy==2.0.36
 
 # Conector MySQL
 PyMySQL==1.1.2
+
+
+# Generador PDF
+reportlab==4.0.0
+
+# Libreria correos electrónicos
+smtplib==0.1.1
