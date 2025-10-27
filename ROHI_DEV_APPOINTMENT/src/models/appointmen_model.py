@@ -26,3 +26,5 @@ class Appointment(Base):
 
     patient = relationship("Patient", back_populates="appointments")
     professional = relationship("Professional", back_populates="appointments")
+    histories = relationship("History", back_populates="appointment", cascade="all, delete-orphan")
+    receipt = relationship("Receipt", back_populates="appointment", uselist=False, cascade="all, delete-orphan")
