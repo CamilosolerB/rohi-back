@@ -28,3 +28,6 @@ class Appointment(Base):
     professional = relationship("Professional", back_populates="appointments")
     history = relationship("History", back_populates="appointment", cascade="all, delete-orphan")
     receipt = relationship("Receipt", back_populates="appointment", uselist=False, cascade="all, delete-orphan")
+
+from src.models.patient_model import Patient
+from src.models.professional_model import Professional

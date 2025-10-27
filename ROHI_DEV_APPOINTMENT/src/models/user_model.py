@@ -2,8 +2,6 @@ from sqlalchemy import Column, Integer, String, Enum as SqlEnum
 from src.utilities.db_appointment import Base
 from sqlalchemy.orm import relationship
 from enum import Enum
-from src.models.patient_model import Patient
-from src.models.professional_model import Professional
 
 class DocumentType(Enum):
     CC = "CC"
@@ -40,3 +38,5 @@ class User(Base):
     is_active = Column(Integer, default=1, nullable=False)
     patient = relationship("Patient", back_populates="user", uselist=False)
     professional = relationship("Professional", back_populates="user", uselist=False)
+
+from src.models.professional_model import Professional
