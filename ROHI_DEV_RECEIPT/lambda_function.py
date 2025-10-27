@@ -1,5 +1,5 @@
 import json
-from src.services.user_service import UserService
+from src.services.receipt_service import UserService
 
 def lambda_handler(event, context):
     print(event)
