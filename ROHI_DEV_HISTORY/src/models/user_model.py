@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, Enum as SqlEnum
-from src.utilities.db_user import Base
+from src.utilities.db_history import Base
 from sqlalchemy.orm import relationship
 from enum import Enum
 from src.models.patient_model import Patient

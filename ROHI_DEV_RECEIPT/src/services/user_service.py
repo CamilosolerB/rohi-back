@@ -1,6 +1,6 @@
 from src.dto.user_dto import UserDTO
-from src.repositories.user_repository import UserRepository
-from src.utilities.db_user import get_session
+from ROHI_DEV_RECEIPT.src.repositories.receipt_repository import UserRepository
+from src.utilities.db_receipt import get_session
 
 class UserService:
     def __init__(self):

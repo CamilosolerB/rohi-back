@@ -1,7 +1,8 @@
 from sqlalchemy import Column, Integer, String, Boolean, Enum as SqlEnum, ForeignKey
 from sqlalchemy.orm import relationship
 from enum import Enum
-from src.utilities.db_user import Base
+from src.utilities.db_receipt import Base
+from src.models.appointmen_model import Appointment
 
 class Eps(Enum):
     NE = "Nueva EPS"
