@@ -22,3 +22,5 @@ class Patient(Base):
     user_document_id = Column(String(15), ForeignKey("users.document_id"), nullable=False, unique=True)
     # Relation with User
     user = relationship("User", back_populates="patient", uselist=False)
+    # Relation with Appointment
+    appointments = relationship("Appointment", back_populates="patient", cascade="all, delete-orphan")

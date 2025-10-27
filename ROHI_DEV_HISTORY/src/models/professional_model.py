@@ -14,3 +14,4 @@ class Professional(Base):
     city = Column(String(255), nullable=False)
     user_document_id = Column(String(15), ForeignKey("users.document_id"), nullable=False, unique=True)
     user = relationship("User", back_populates="professional", uselist=False)
+    appointments = relationship("Appointment", back_populates="professional", cascade="all, delete-orphan")

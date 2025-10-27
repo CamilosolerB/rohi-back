@@ -36,6 +36,17 @@
                 "PYTHONPATH": "${workspaceFolder}"
             },
             "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "ROHI DEV APPOINTMENT",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}\\entrys\\entry_appointment.py",
+            "console": "integratedTerminal",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "cwd": "${workspaceFolder}"
         }
     ]
 }

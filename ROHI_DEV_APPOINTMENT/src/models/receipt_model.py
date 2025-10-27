@@ -18,4 +18,4 @@ class Receipt(Base):
     status = Column(SqlEnum(ReceiptStatus), default=ReceiptStatus.PENDING, nullable=False)
     appointment_id = Column(Integer, ForeignKey("appointments.id"), nullable=False)
 
-    appointment = relationship("Appointment", back_populates="receipts")
+    appointment = relationship("Appointment", back_populates="receipt")

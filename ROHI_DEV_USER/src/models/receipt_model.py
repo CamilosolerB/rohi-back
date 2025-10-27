@@ -19,4 +19,4 @@ class Receipt(Base):
     url_receipt = Column(String(255), nullable=True)
     appointment_id = Column(Integer, ForeignKey("appointments.id"), nullable=False)
 
-    appointment = relationship("Appointment", back_populates="receipts")
+    appointment = relationship("Appointment", back_populates="receipt")
