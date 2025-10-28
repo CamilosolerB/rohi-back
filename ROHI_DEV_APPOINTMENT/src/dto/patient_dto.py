@@ -9,5 +9,5 @@ class PatientDTO(BaseModel):
     eps: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
         use_enum_values = True

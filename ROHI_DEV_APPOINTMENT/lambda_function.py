@@ -2,6 +2,7 @@ import json
 from src.services.appointment_service import AppointmentService
 
 def lambda_handler(event, context):
+
     print(event)
     service = AppointmentService()
     route = event.get("routeKey", "")
