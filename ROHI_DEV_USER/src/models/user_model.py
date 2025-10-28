@@ -20,11 +20,13 @@ class Sex(Enum):
     NN = "No se identifica con los anteriores"
 
 class Rol(Enum):
-    GERENTE = "Gerente"
-    ADMIN = "Administrador"
-    DOCTOR = "Doctor"
-    TERAPEUTA = "Terapeuta"
-    PACIENTE = "Paciente"
+    GERENTE = "GERENTE"
+    ADMIN = "ADMIN"
+    DOCTOR = "DOCTOR"
+    TERAPEUTA = "TERAPEUTA"
+    PACIENTE = "PACIENTE"
+    SECRETARIO = "SECRETARIO"
+
 
 class User(Base):
     __tablename__ = "users"

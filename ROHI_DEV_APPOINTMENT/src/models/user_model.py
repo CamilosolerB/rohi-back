@@ -23,6 +23,7 @@ class Rol(Enum):
     DOCTOR = "Doctor"
     TERAPEUTA = "Terapeuta"
     PACIENTE = "Paciente"
+    SECRETARIO = "Secretario"
 
 class User(Base):
     __tablename__ = "users"
