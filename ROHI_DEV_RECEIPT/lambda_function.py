@@ -10,11 +10,11 @@ def lambda_handler(event, context):
 
     try:
         if route == "POST /receipts":
-            patient_email = body.get("patient_email", "")
+            patient_email = body.pop("patient_email", "")
             receipt = service.create_receipt(body, patient_email)
             return {
                 "statusCode": 201,
-                "body": json.dumps(receipt)
+                "body": {"message": "Receipt created successfully"}
             }
         elif route == "GET /receipts/{receipt_id}":
             receipt_id = int(path_params.get("receipt_id", 0))

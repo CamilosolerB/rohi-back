@@ -2,8 +2,6 @@ from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Enum as Sq
 from sqlalchemy.orm import relationship
 from enum import Enum
 from src.utilities.db_receipt import Base
-from src.models.history_model import History
-from src.models.receipt_model import Receipt
 
 class AppointmentStatus(Enum):
     FREE = "free"
@@ -28,3 +26,7 @@ class Appointment(Base):
     professional = relationship("Professional", back_populates="appointments")
     histories = relationship("History", back_populates="appointment", cascade="all, delete-orphan")
     receipt = relationship("Receipt", back_populates="appointment", uselist=False, cascade="all, delete-orphan")
+
+from src.models.history_model import History
+from src.models.patient_model import Patient
+from src.models.professional_model import Professional

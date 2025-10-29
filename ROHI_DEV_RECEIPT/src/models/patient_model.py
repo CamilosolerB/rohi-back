@@ -2,7 +2,6 @@ from sqlalchemy import Column, Integer, String, Boolean, Enum as SqlEnum, Foreig
 from sqlalchemy.orm import relationship
 from enum import Enum
 from src.utilities.db_receipt import Base
-from src.models.appointmen_model import Appointment
 
 class Eps(Enum):
     NE = "Nueva EPS"
@@ -22,3 +21,7 @@ class Patient(Base):
     user_document_id = Column(String(15), ForeignKey("users.document_id"), nullable=False, unique=True)
     # Relation with User
     user = relationship("User", back_populates="patient", uselist=False)
+    # Relation with Appointments
+    appointments = relationship("Appointment", back_populates="patient", cascade="all, delete-orphan")
+
+from src.models.user_model import User
