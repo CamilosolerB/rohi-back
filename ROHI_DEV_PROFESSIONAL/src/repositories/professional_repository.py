@@ -17,7 +17,7 @@ class ProfessionalRepository:
             raise e
 
     def get_by_id(self, user_document_id: str) -> Optional[Professional]:
-        return self.db.query(Professional).filter(Professional.user_document_id == user_document_id).first()
+        return self.db.query(Professional).filter(Professional.id_prof == user_document_id).first()
 
     def get_all(self) -> List[Professional]:
         return self.db.query(Professional).all()
