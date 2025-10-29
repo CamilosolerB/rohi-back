@@ -17,3 +17,6 @@ PyMySQL==1.1.2
 
 # Generador PDF
 reportlab==4.0.0
+
+# Variables de entorno
+dotenv==1.0.0
